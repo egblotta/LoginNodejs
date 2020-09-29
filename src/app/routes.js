@@ -12,7 +12,7 @@ module.exports = (app, passport) => {
         });
     });
 
-    app.post('/login', (req, res)=> {});
+    //app.post('/login', passport.authenticate(''));
 
     app.get('/signup', (req, res) => {
         res.render('signup', {
@@ -20,6 +20,15 @@ module.exports = (app, passport) => {
         });
     });
 
-    app.post('/signup', (req, res)=> {});
+    app.post('/signup', passport.authenticate('local-signup',{
+        succesRedirect: '/profile',
+        failureRedirect: '/signup',
+        failureFlash: true
+    }));
 
+    app.get('/profile', (req, res) =>{
+        res.render('profile',{
+            user: req.user
+        });
+    });
 };
