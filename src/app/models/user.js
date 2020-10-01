@@ -27,7 +27,7 @@ const userSchema = new moongose.Schema({        //para registrarse de diferentes
     }
 });
 
-userSchema.method.generateHash = function (password){                         //cifra la password 
+userSchema.methods.generateHash = function (password){                         //cifra la password 
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);            //genSalt es para ver cuantas veces se aplica el algoritmo
 };
 

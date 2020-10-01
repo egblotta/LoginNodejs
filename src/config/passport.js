@@ -1,4 +1,4 @@
-const LocalStrategy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy;       // estrategia para autenticarse con usuario y contraseña
 
 const User = require('../app/models/user');
 
@@ -25,9 +25,9 @@ module.exports = function (passport){
             if (user){
                 return done(null, false, req.flash('signupMessage','El email ya existe.'));
             }else{
-                var newUser = new User();
+                var newUser = new User();           //crea un objeto usuario
                 newUser.local.email = email;
-                newUser.local.password = newUser.generateHash(password);
+                newUser.local.password = newUser.generateHash(password);        //cifra la pw
                 newUser.save(function (err){
                     if (err){throw err;}
                     return done(null, newUser);
@@ -40,7 +40,7 @@ module.exports = function (passport){
     passport.use('local-login', new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
-        passReqToCallback: true                 //le pasamos el reques a la funcion 
+        passReqToCallback: true                 //le pasamos el request a la funcion 
     },
     function(req, email, password, done) {
         User.findOne({'local.email':email}, function(err, user) {            //si existe retorna un error, sino sigue

@@ -20,7 +20,7 @@ module.exports = (app, passport) => {
         });
     });
 
-    app.post('/signup', passport.authenticate('local-signup',{
+    app.post('/signup', passport.authenticate('local-signup', {
         succesRedirect: '/profile',
         failureRedirect: '/signup',
         failureFlash: true
