@@ -20,14 +20,14 @@ module.exports = (app, passport) => {
         });
     });
 
-    app.post('/signup', passport.authenticate('local-signup',{
-        succesRedirect: '/profile',
+    app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect: '/profile',
         failureRedirect: '/signup',
         failureFlash: true
     }));
 
     app.get('/profile', (req, res) =>{
-        res.render('profile',{
+        res.render('profile', {
             user: req.user
         });
     });
