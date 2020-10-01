@@ -1,6 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy;       // estrategia para autenticarse con usuario y contraseña
-
-const User = require('../app/models/user');
+const User = require ('../app/models/user');
 
 module.exports = function (passport){
     passport.serializeUser(function (user, done){
