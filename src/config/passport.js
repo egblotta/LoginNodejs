@@ -29,7 +29,7 @@ module.exports = function (passport){
                 newUser.local.password = newUser.generateHash(password);        //cifra la pw
                 newUser.save(function (err){
                     if (err){throw err;}
-                    return done(null, newUser);
+                    return done(null, newUser);         //devuelve el usuario registrado
                 });
             }
         });    
@@ -50,7 +50,7 @@ module.exports = function (passport){
             if(!user.validatePassword(password)) {
                 return done(null, false, req.flash('loginMessage', 'Contraseña incorrecta'))
             }
-            return done(null, user);
+            return done(null, user);        //devuelve el usuario
         });    
     }));
 

@@ -12,9 +12,13 @@ module.exports = (app, passport) => {
         });
     });
 
-    //app.post('/login', passport.authenticate(''));
+    app.post('/login', passport.authenticate('local-login', {
+        successRedirect: '/profile',
+        failureRedirect: '/login',
+        failureFlash: true
+    }));
 
-    app.get('/signup', (req, res) => {
+    app.get('/signup', (req, res) => {      //req(request)  y res(response) son manejadores de funciones
         res.render('signup', {
             message: req.flash('signupMessage')
         });
@@ -26,9 +30,22 @@ module.exports = (app, passport) => {
         failureFlash: true
     }));
 
-    app.get('/profile', (req, res) =>{
-        res.render('profile',{
-            user: req.user
+    app.get('/profile', isLoggedIn, (req, res) =>{              //isLoggedIn para la comprobacion de logeado
+        res.render('profile',{                             //lleva al profile
+            user: req.user                                  //obtengo la informacion del usuario
         });
     });
+
+    app.get('/logout', (req, res) => {
+        req.logout();
+        res.redirect('/');
+    });
 };
+
+//para saber si esta logeado
+function isLoggedIn(req, res, next){
+    if (req.isAuthenticated()){
+        return next();                  //si esta logeado entonces continuar con la siguiente ruta
+    }
+    return res.redirect('/');           //sino devolver al main
+}
