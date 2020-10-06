@@ -22,7 +22,12 @@ module.exports = function (passport){
         User.findOne({'local.email':email}, function(err, user){
             if (err){return done(err);}
             if (user){
-                return done(null, false, req.flash('signupMessage','El email ya existe.'));
+                try {
+                    return done(null, false, req.flash('signupMessage','El email ya existe.'));
+                } catch (error) {
+                    console.log(error);
+                }
+                
             }else{
                 var newUser = new User();           //crea un objeto usuario
                 newUser.local.email = email;
@@ -48,7 +53,11 @@ module.exports = function (passport){
                 return done(null, false, req.flash('loginMessage','El usuario no ha sido encontrado.'));
             }
             if(!user.validatePassword(password)) {
-                return done(null, false, req.flash('loginMessage', 'Contraseña incorrecta'))
+                try {
+                    return done(null, false, req.flash('loginMessage', 'Contraseña incorrecta'))
+                } catch (error) {
+                    console.log(error);
+                }                
             }
             return done(null, user);        //devuelve el usuario
         });    

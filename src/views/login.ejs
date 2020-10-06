@@ -16,9 +16,9 @@
                         <span class="fa fa-sign-in"></span> Login
                     </h1>
 
-                    <% if (message.length > 0) { %>         
+                    <% if (message && message.length > 0) { %>         
                         <div class="alert alert-danger">
-                            <% message  %> 
+                            <%= message  %> 
                         </div>
                     <% } %>
 

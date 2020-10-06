@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express();
-
 const path = require('path');
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -33,9 +32,10 @@ app.use(session({
     resave:false,
     saveUninitialized:false
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
+app.use(flash());       //mensajes flash
 
 //routes
 require('./app/routes')(app, passport);
